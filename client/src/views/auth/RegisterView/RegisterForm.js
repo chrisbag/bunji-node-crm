@@ -32,7 +32,8 @@ function RegisterForm({ className, onSubmitSuccess, ...rest }) {
         email: '',
         password: '',
         telephone: '',
-        policy: false
+        policy: false,
+        active: false
       }}
       validationSchema={Yup.object().shape({
         prenom: Yup.string()

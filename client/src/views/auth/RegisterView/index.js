@@ -51,7 +51,7 @@ function RegisterView() {
         <Card>
           <CardContent>
             <Typography gutterBottom variant="h2" color="textPrimary">
-              Essayer Bunji gratuitement pendant 14 jours
+              Essayez Bunji gratuitement pendant 14 jours
             </Typography>
             <Typography variant="subtitle1">
               Sign up on the internal platform
