@@ -1,0 +1,25 @@
+node_modules
+config/*
+
+# dependencies
+crm/node_modules
+crm/.pnp
+.pnp.js
+
+# testing
+crm/coverage
+
+# production
+crm/build
+
+# misc
+crm/.DS_Store
+crm/.env
+crm/.env.local
+crm/.env.development.local
+crm/.env.test.local
+crm/.env.production.local
+
+crm/npm-debug.log*
+crm/yarn-debug.log*
+crm/yarn-error.log*
