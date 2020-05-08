@@ -1,4 +1,4 @@
-import axios from 'src/utils/axios';
+import axios from 'axios';
 import authService from 'src/services/authService';
 
 export const LOGIN_REQUEST = '@account/login-request';
@@ -10,7 +10,7 @@ export const REGISTER = '@account/register';
 export const UPDATE_PROFILE = '@account/update-profile';
 
 export function login(email, password) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       dispatch({ type: LOGIN_REQUEST });
 
@@ -30,16 +30,17 @@ export function login(email, password) {
 }
 
 export function setUserData(user) {
-  return (dispatch) => dispatch({
-    type: SILENT_LOGIN,
-    payload: {
-      user
-    }
-  });
+  return dispatch =>
+    dispatch({
+      type: SILENT_LOGIN,
+      payload: {
+        user
+      }
+    });
 }
 
 export function logout() {
-  return async (dispatch) => {
+  return async dispatch => {
     authService.logout();
 
     dispatch({
@@ -48,17 +49,20 @@ export function logout() {
   };
 }
 
-export function register() {
-  return true;
+export function register(values) {
+  console.log(values);
+  const request = axios.post('/api/v1/users', values);
 }
 
 export function updateProfile(update) {
   const request = axios.post('/api/account/profile', { update });
 
-  return (dispatch) => {
-    request.then((response) => dispatch({
-      type: UPDATE_PROFILE,
-      payload: response.data
-    }));
+  return dispatch => {
+    request.then(response =>
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: response.data
+      })
+    );
   };
 }

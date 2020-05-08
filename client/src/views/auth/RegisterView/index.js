@@ -16,7 +16,7 @@ import Page from 'src/components/Page';
 import Logo from 'src/components/Logo';
 import RegisterForm from './RegisterForm';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     justifyContent: 'center',
     backgroundColor: theme.palette.background.dark,
@@ -38,35 +38,20 @@ function RegisterView() {
   };
 
   return (
-    <Page
-      className={classes.root}
-      title="Register"
-    >
+    <Page className={classes.root} title="Register">
       <Container maxWidth="sm">
-        <Box
-          mb={5}
-          display="flex"
-          alignItems="center"
-        >
+        <Box mb={5} display="flex" alignItems="center">
           <RouterLink to="/">
             <Logo />
           </RouterLink>
-          <Button
-            component={RouterLink}
-            to="/"
-            className={classes.backButton}
-          >
+          <Button component={RouterLink} to="/" className={classes.backButton}>
             Back to home
           </Button>
         </Box>
         <Card>
           <CardContent>
-            <Typography
-              gutterBottom
-              variant="h2"
-              color="textPrimary"
-            >
-              Sign up
+            <Typography gutterBottom variant="h2" color="textPrimary">
+              Essayer Bunji gratuitement pendant 14 jours
             </Typography>
             <Typography variant="subtitle1">
               Sign up on the internal platform
@@ -83,7 +68,7 @@ function RegisterView() {
               variant="body2"
               color="textSecondary"
             >
-              Have an account?
+              Vous avez déjà un compte ? Connectez-vous ici
             </Link>
           </CardContent>
         </Card>

@@ -27,24 +27,31 @@ function RegisterForm({ className, onSubmitSuccess, ...rest }) {
   return (
     <Formik
       initialValues={{
-        firstName: '',
-        lastName: '',
+        prenom: '',
+        nom: '',
         email: '',
         password: '',
+        telephone: '',
         policy: false
       }}
       validationSchema={Yup.object().shape({
-        firstName: Yup.string().max(255).required('First name is required'),
-        lastName: Yup.string().max(255).required('Last name is required'),
-        email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-        password: Yup.string().min(7).max(255).required('Password is required'),
+        prenom: Yup.string()
+          .max(255)
+          .required('First name is required'),
+        nom: Yup.string()
+          .max(255)
+          .required('Last name is required'),
+        email: Yup.string()
+          .email('Must be a valid email')
+          .max(255)
+          .required('Email is required'),
+        password: Yup.string()
+          .min(7)
+          .max(255)
+          .required('Password is required'),
         policy: Yup.boolean().oneOf([true], 'This field must be checked')
       })}
-      onSubmit={async (values, {
-        setErrors,
-        setStatus,
-        setSubmitting
-      }) => {
+      onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
           await dispatch(register(values));
           onSubmitSuccess();
@@ -70,36 +77,36 @@ function RegisterForm({ className, onSubmitSuccess, ...rest }) {
           {...rest}
         >
           <TextField
-            error={Boolean(touched.firstName && errors.firstName)}
+            error={Boolean(touched.prenom && errors.prenom)}
             fullWidth
-            helperText={touched.firstName && errors.firstName}
-            label="First Name"
+            helperText={touched.prenom && errors.prenom}
+            label="Prénom"
             margin="normal"
-            name="firstName"
+            name="prenom"
             onBlur={handleBlur}
             onChange={handleChange}
-            type="firstName"
-            value={values.firstName}
+            type="prenom"
+            value={values.prenom}
             variant="outlined"
           />
           <TextField
-            error={Boolean(touched.lastName && errors.lastName)}
+            error={Boolean(touched.nom && errors.nom)}
             fullWidth
-            helperText={touched.lastName && errors.lastName}
-            label="Last Name"
+            helperText={touched.nom && errors.nom}
+            label="Nom"
             margin="normal"
-            name="lastName"
+            name="nom"
             onBlur={handleBlur}
             onChange={handleChange}
-            type="lastName"
-            value={values.lastName}
+            type="nom"
+            value={values.nom}
             variant="outlined"
           />
           <TextField
             error={Boolean(touched.email && errors.email)}
             fullWidth
             helperText={touched.email && errors.email}
-            label="Email Address"
+            label="Email"
             margin="normal"
             name="email"
             onBlur={handleBlur}
@@ -112,7 +119,7 @@ function RegisterForm({ className, onSubmitSuccess, ...rest }) {
             error={Boolean(touched.password && errors.password)}
             fullWidth
             helperText={touched.password && errors.password}
-            label="Password"
+            label="Mot de passe"
             margin="normal"
             name="password"
             onBlur={handleBlur}
@@ -121,36 +128,39 @@ function RegisterForm({ className, onSubmitSuccess, ...rest }) {
             value={values.password}
             variant="outlined"
           />
-          <Box
-            alignItems="center"
-            display="flex"
-            mt={2}
-            ml={-1}
-          >
+          <TextField
+            error={Boolean(touched.telephone && errors.telephone)}
+            fullWidth
+            helperText={touched.telephone && errors.telephone}
+            label="Téléphone"
+            margin="normal"
+            name="telephone"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            type="telephone"
+            value={values.telephone}
+            variant="outlined"
+          />
+
+          <Box alignItems="center" display="flex" mt={2} ml={-1}>
             <Checkbox
               checked={values.policy}
               name="policy"
               onChange={handleChange}
             />
-            <Typography
-              variant="body2"
-              color="textSecondary"
-            >
-              I have read the
-              {' '}
-              <Link
-                component="a"
-                href="#"
-                color="secondary"
-              >
-                Terms and Conditions
+            <Typography variant="body2" color="textSecondary">
+              Vous confirmez avoir lu et accepté notre{' '}
+              <Link component="a" href="#" color="secondary">
+                Politique de Confidentialité
+              </Link>{' '}
+              et nos{' '}
+              <Link component="a" href="#" color="secondary">
+                CGU
               </Link>
             </Typography>
           </Box>
           {Boolean(touched.policy && errors.policy) && (
-            <FormHelperText error>
-              {errors.policy}
-            </FormHelperText>
+            <FormHelperText error>{errors.policy}</FormHelperText>
           )}
           <Box mt={2}>
             <Button
@@ -161,7 +171,7 @@ function RegisterForm({ className, onSubmitSuccess, ...rest }) {
               type="submit"
               variant="contained"
             >
-              Create account
+              Essayez Gratuitement
             </Button>
           </Box>
         </form>
