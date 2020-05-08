@@ -47,9 +47,9 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
-  tokens: [
+  accessTokens: [
     {
-      token: {
+      accessToken: {
         type: String,
         required: true,
       },
@@ -68,19 +68,22 @@ userSchema.methods.toJSON = function () {
   const userObject = user.toObject();
 
   delete userObject.password;
-  delete userObject.tokens;
+  delete userObject.accessTokens;
 
   return userObject;
 };
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
+  const accessToken = jwt.sign(
+    { _id: user._id.toString() },
+    process.env.JWT_SECRET
+  );
 
-  user.tokens = user.tokens.concat({ token });
+  user.accessTokens = user.accessTokens.concat({ accessToken });
   await user.save();
 
-  return token;
+  return accessToken;
 };
 
 userSchema.statics.findByCredentials = async (email, password) => {

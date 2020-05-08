@@ -3,18 +3,18 @@ const User = require("../models/user");
 
 const auth = async (req, res, next) => {
   try {
-    const token = req.header("Authorization").replace("Bearer ", "");
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const accessToken = req.header("Authorization").replace("Bearer ", "");
+    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
     const user = await User.findOne({
       _id: decoded._id,
-      "tokens.token": token,
+      "accessTokens.accessToken": accessToken,
     });
 
     if (!user) {
       throw new Error();
     }
 
-    req.token = token;
+    req.accessToken = accessToken;
     req.user = user;
     next();
   } catch (e) {

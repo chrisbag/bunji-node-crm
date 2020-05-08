@@ -9,9 +9,9 @@ router.post("/api/v1/users", async (req, res) => {
 
   try {
     await user.save();
-    const token = await user.generateAuthToken();
+    const accessToken = await user.generateAuthToken();
     sendWelcomeEmail(user.email, user.prenom);
-    res.status(201).send({ user, token });
+    res.status(201).send({ user, accessToken });
   } catch (e) {
     res.status(400).send(e);
   }
@@ -23,8 +23,8 @@ router.post("/api/v1/users/login", async (req, res) => {
       req.body.email,
       req.body.password
     );
-    const token = await user.generateAuthToken();
-    res.send({ user, token });
+    const accessToken = await user.generateAuthToken();
+    res.send({ user, accessToken });
   } catch (e) {
     res.status(400).send();
   }
@@ -32,8 +32,8 @@ router.post("/api/v1/users/login", async (req, res) => {
 
 router.post("/api/v1/users/logout", auth, async (req, res) => {
   try {
-    req.user.tokens = req.user.tokens.filter((token) => {
-      return token.token !== req.token;
+    req.user.accessTokens = req.user.accessTokens.filter((accessToken) => {
+      return accessToken.accessToken !== req.accessToken;
     });
     await req.user.save();
 
@@ -45,7 +45,7 @@ router.post("/api/v1/users/logout", auth, async (req, res) => {
 
 router.post("/api/v1/users/logoutAll", auth, async (req, res) => {
   try {
-    req.user.tokens = [];
+    req.user.accessTokens = [];
     await req.user.save();
     res.send();
   } catch (e) {
