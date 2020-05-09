@@ -57,8 +57,9 @@ class AuthService {
   loginInWithToken = () =>
     new Promise((resolve, reject) => {
       axios
-        .get('/api/account/me')
+        .get('/api/v1/users/me')
         .then(response => {
+          console.log(response);
           if (response.data.user) {
             resolve(response.data.user);
           } else {
