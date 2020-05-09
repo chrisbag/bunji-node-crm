@@ -7,7 +7,10 @@ const sendWelcomeEmail = (email, prenom) => {
     to: email,
     from: "christopher@bunji.fr",
     subject: "Bienvenue sur Bunji APP",
-    text: `Bonjour ${prenom}, bienvenue sur Bunji. `,
+    templateId: "d-407dbe75f9c84c49baf94fb1523dfe82",
+    dynamic_template_data: {
+      prenom,
+    },
   };
   sgMail.send(msg);
 };
